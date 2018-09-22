@@ -73,6 +73,7 @@ def team_names
   teams
 end
 
+# alternative:
 # array = []
 # home_string = game_hash[:home][:team_name] # "Brooklyn Nets"
 # away_string = game_hash[:away][:team_name] # "Charlotte Hornets"
@@ -80,17 +81,49 @@ end
 # array << home_string
 # array << away_string
 
+def player_numbers(team_name)
+  array = []
+  game_hash.collect do |location, team_hash|
+    if team_name == team_hash[:team_name]
+      team_hash[:players].collect do |player_name, stats_hash| # .each works too
+        array << stats_hash[:number]
+      end
+    end
+  end
+  array
+end
+
+def player_stats(name)
+  # binding.pry
+  players[name]
+end
+
+def big_shoe_rebounds
+  biggest_shoe_size = 0
+  big_rebounds = 0
+
+  game_hash.each do |location, team_hash|
+    team_hash[:players].each do |player_name, stats_hash|
+      if stats_hash[:shoe] > biggest_shoe_size
+        biggest_shoe_size = stats_hash[:shoe]
+        big_rebounds = stats_hash[:rebounds]
+      end
+    end
+  end
+  big_rebounds
+end
+
 # def good_practices
-#   game_hash.each do |location, team_data|
+#   game_hash.each do |location, team_hash|
 #     #are you ABSOLUTELY SURE what 'location' and 'team data' are? use binding.pry to find out!
-#     # binding.pry
-#       team_data.each do |attribute, data|
+#     binding.pry
+#       team_hash.each do |player_name, stats_hash|
 #         #are you ABSOLUTELY SURE what 'attribute' and 'team data' are? use binding.pry to find out!
-#         binding.pry
+        # binding.pry
 #
 #         #what is 'data' at each loop through out .each block? when will the following line of code work and when will it break?
 #         data.each do |data_item|
-#             binding.pry
+#           # binding.pry
 #       end
 #     end
 #   end
