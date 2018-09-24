@@ -172,5 +172,3 @@ def big_shoe_rebounds
   end
   rebs
 end
-
-puts big_shoe_rebounds
